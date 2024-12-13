@@ -1,6 +1,213 @@
 
 
 
+// "use client";
+// import Image from "next/image";
+// import React, { useState } from "react";
+// import {
+//   motion,
+//   useTransform,
+//   AnimatePresence,
+//   useMotionValue,
+//   useSpring,
+// } from "framer-motion";
+
+// export const AnimatedTooltip = ({
+//   items,
+// }: {
+//   items: {
+//     id: number;
+//     name: string;
+//     designation: string;
+//     image: string;
+//   }[];
+// }) => {
+//   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+//   const springConfig = { stiffness: 100, damping: 5 };
+//   const x = useMotionValue(0); // going to set this value on mouse move
+//   // rotate the tooltip
+//   const rotate = useSpring(
+//     useTransform(x, [-100, 100], [-45, 45]),
+//     springConfig
+//   );
+//   // translate the tooltip
+//   const translateX = useSpring(
+//     useTransform(x, [-100, 100], [-50, 50]),
+//     springConfig
+//   );
+//   // const handleMouseMove = (event: any) => {
+//   //   const halfWidth = event.target.offsetWidth / 2;
+//   //   x.set(event.nativeEvent.offsetX - halfWidth); // set the x value, which is then used in transform and rotate
+//   // };
+//   const handleMouseMove = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+//     const halfWidth = event.currentTarget.offsetWidth / 2; // using currentTarget to refer to the element that is actually handling the event
+//     x.set(event.nativeEvent.offsetX - halfWidth); // set the x value, which is then used in transform and rotate
+//   };
+
+//   return (
+//     <>
+//       {items.map((item) => (
+//         <div
+//           className="-mr-4  relative group"
+//           key={item.name}
+//           onMouseEnter={() => setHoveredIndex(item.id)}
+//           onMouseLeave={() => setHoveredIndex(null)}
+//         >
+//           <AnimatePresence mode="wait">
+//             {hoveredIndex === item.id && (
+//               <motion.div
+//                 initial={{ opacity: 0, y: 20, scale: 0.6 }}
+//                 animate={{
+//                   opacity: 1,
+//                   y: 0,
+//                   scale: 1,
+//                   transition: {
+//                     type: "spring",
+//                     stiffness: 260,
+//                     damping: 10,
+//                   },
+//                 }}
+//                 exit={{ opacity: 0, y: 20, scale: 0.6 }}
+//                 style={{
+//                   translateX: translateX,
+//                   rotate: rotate,
+//                   whiteSpace: "nowrap",
+//                 }}
+//                 className="absolute -top-16 -left-1/2 translate-x-1/2 flex text-xs  flex-col items-center justify-center rounded-md bg-black z-50 shadow-xl px-4 py-2"
+//               >
+//                 <div className="absolute inset-x-10 z-30 w-[20%] -bottom-px bg-gradient-to-r from-transparent via-emerald-500 to-transparent h-px " />
+//                 <div className="absolute left-10 w-[40%] z-30 -bottom-px bg-gradient-to-r from-transparent via-sky-500 to-transparent h-px " />
+//                 <div className="font-bold text-white relative z-30 text-base">
+//                   {item.name}
+//                 </div>
+//                 <div className="text-white text-xs">{item.designation}</div>
+//               </motion.div>
+//             )}
+//           </AnimatePresence>
+//           <Image
+//             onMouseMove={handleMouseMove}
+//             height={100}
+//             width={100}
+//             src={item.image}
+//             alt={item.name}
+//             className="object-cover !m-0 !p-0 object-top rounded-full h-14 w-14 border-2 group-hover:scale-105 group-hover:z-30 border-white  relative transition duration-500"
+//           />
+//         </div>
+//       ))}
+//     </>
+//   );
+// };
+
+
+
+
+
+
+
+// "use client";
+// import Image from "next/image";
+// import React, { useState } from "react";
+// import {
+//   motion,
+//   useTransform,
+//   AnimatePresence,
+//   useMotionValue,
+//   useSpring,
+//   MotionProps,
+// } from "framer-motion";
+
+// // Type definitions for motion components
+// type MotionDivProps = MotionProps & React.HTMLProps<HTMLDivElement>;
+
+
+// const MotionDiv = motion.div as React.FC<MotionDivProps>;
+
+
+// export const AnimatedTooltip = ({
+//   items,
+// }: {
+//   items: {
+//     id: number;
+//     name: string;
+//     designation: string;
+//     image: string;
+//   }[];
+// }) => {
+//   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+//   const springConfig = { stiffness: 100, damping: 5 };
+//   const x = useMotionValue(0); // going to set this value on mouse move
+
+//   // rotate the tooltip (convert the MotionValue to a string with 'deg' unit)
+//   const rotate = useTransform(x, [-100, 100], [-45, 45]); // This will be a MotionValue that outputs numbers
+//   const rotateWithUnit = useTransform(rotate, (value) => `${value}deg`); // Convert to string with "deg"
+
+//   // translate the tooltip
+//   const translateX = useSpring(
+//     useTransform(x, [-100, 100], [-50, 50]),
+//     springConfig
+//   );
+
+//   const handleMouseMove = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+//     const halfWidth = event.currentTarget.offsetWidth / 2; // using currentTarget to refer to the element that is actually handling the event
+//     x.set(event.nativeEvent.offsetX - halfWidth); // set the x value, which is then used in transform and rotate
+//   };
+
+//   return (
+//     <>
+//       {items.map((item) => (
+//         <div
+//           className="-mr-4  relative group"
+//           key={item.name}
+//           onMouseEnter={() => setHoveredIndex(item.id)}
+//           onMouseLeave={() => setHoveredIndex(null)}
+//         >
+//           <AnimatePresence mode="wait">
+//             {hoveredIndex === item.id && (
+//               <MotionDiv
+//                 initial={{ opacity: 0, y: 20, scale: 0.6 }}
+//                 animate={{
+//                   opacity: 1,
+//                   y: 0,
+//                   scale: 1,
+//                   transition: {
+//                     type: "spring",
+//                     stiffness: 260,
+//                     damping: 10,
+//                   },
+//                 }}
+//                 exit={{ opacity: 0, y: 20, scale: 0.6 }}
+//                 style={{
+//                   translateX: translateX,
+//                   rotate: rotateWithUnit, // Use the transformed value
+//                   whiteSpace: "nowrap",
+//                 }}
+//                 className="absolute -top-16 -left-1/2 translate-x-1/2 flex text-xs  flex-col items-center justify-center rounded-md bg-black z-50 shadow-xl px-4 py-2"
+//               >
+//                 <div className="absolute inset-x-10 z-30 w-[20%] -bottom-px bg-gradient-to-r from-transparent via-emerald-500 to-transparent h-px " />
+//                 <div className="absolute left-10 w-[40%] z-30 -bottom-px bg-gradient-to-r from-transparent via-sky-500 to-transparent h-px " />
+//                 <div className="font-bold text-white relative z-30 text-base">
+//                   {item.name}
+//                 </div>
+//                 <div className="text-white text-xs">{item.designation}</div>
+//               </MotionDiv>
+//             )}
+//           </AnimatePresence>
+//           <Image
+//             onMouseMove={handleMouseMove}
+//             height={100}
+//             width={100}
+//             src={item.image}
+//             alt={item.name}
+//             className="object-cover !m-0 !p-0 object-top rounded-full h-14 w-14 border-2 group-hover:scale-105 group-hover:z-30 border-white  relative transition duration-500"
+//           />
+//         </div>
+//       ))}
+//     </>
+//   );
+// };
+
+
+
 "use client";
 import Image from "next/image";
 import React, { useState } from "react";
@@ -10,7 +217,13 @@ import {
   AnimatePresence,
   useMotionValue,
   useSpring,
+  MotionProps,
 } from "framer-motion";
+
+// Type definitions for motion components
+type MotionDivProps = MotionProps & React.HTMLProps<HTMLDivElement>;
+
+const MotionDiv = motion.div as React.FC<MotionDivProps>;
 
 export const AnimatedTooltip = ({
   items,
@@ -25,20 +238,17 @@ export const AnimatedTooltip = ({
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const springConfig = { stiffness: 100, damping: 5 };
   const x = useMotionValue(0); // going to set this value on mouse move
-  // rotate the tooltip
-  const rotate = useSpring(
-    useTransform(x, [-100, 100], [-45, 45]),
-    springConfig
-  );
+
+  // rotate the tooltip (convert the MotionValue to a string with 'deg' unit)
+  const rotate = useTransform(x, [-100, 100], [-45, 45]); // This will be a MotionValue that outputs numbers
+
   // translate the tooltip
   const translateX = useSpring(
     useTransform(x, [-100, 100], [-50, 50]),
     springConfig
   );
-  // const handleMouseMove = (event: any) => {
-  //   const halfWidth = event.target.offsetWidth / 2;
-  //   x.set(event.nativeEvent.offsetX - halfWidth); // set the x value, which is then used in transform and rotate
-  // };
+
+  // Function to handle mouse move
   const handleMouseMove = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const halfWidth = event.currentTarget.offsetWidth / 2; // using currentTarget to refer to the element that is actually handling the event
     x.set(event.nativeEvent.offsetX - halfWidth); // set the x value, which is then used in transform and rotate
@@ -48,14 +258,14 @@ export const AnimatedTooltip = ({
     <>
       {items.map((item) => (
         <div
-          className="-mr-4  relative group"
+          className="-mr-4 relative group"
           key={item.name}
           onMouseEnter={() => setHoveredIndex(item.id)}
           onMouseLeave={() => setHoveredIndex(null)}
         >
           <AnimatePresence mode="wait">
             {hoveredIndex === item.id && (
-              <motion.div
+              <MotionDiv
                 initial={{ opacity: 0, y: 20, scale: 0.6 }}
                 animate={{
                   opacity: 1,
@@ -70,10 +280,10 @@ export const AnimatedTooltip = ({
                 exit={{ opacity: 0, y: 20, scale: 0.6 }}
                 style={{
                   translateX: translateX,
-                  rotate: rotate,
+                  rotate: rotate.get() ? `${rotate.get()}deg` : "0deg", // Explicitly getting and converting the MotionValue to a CSS string
                   whiteSpace: "nowrap",
                 }}
-                className="absolute -top-16 -left-1/2 translate-x-1/2 flex text-xs  flex-col items-center justify-center rounded-md bg-black z-50 shadow-xl px-4 py-2"
+                className="absolute -top-16 -left-1/2 translate-x-1/2 flex text-xs flex-col items-center justify-center rounded-md bg-black z-50 shadow-xl px-4 py-2"
               >
                 <div className="absolute inset-x-10 z-30 w-[20%] -bottom-px bg-gradient-to-r from-transparent via-emerald-500 to-transparent h-px " />
                 <div className="absolute left-10 w-[40%] z-30 -bottom-px bg-gradient-to-r from-transparent via-sky-500 to-transparent h-px " />
@@ -81,7 +291,7 @@ export const AnimatedTooltip = ({
                   {item.name}
                 </div>
                 <div className="text-white text-xs">{item.designation}</div>
-              </motion.div>
+              </MotionDiv>
             )}
           </AnimatePresence>
           <Image
@@ -90,7 +300,7 @@ export const AnimatedTooltip = ({
             width={100}
             src={item.image}
             alt={item.name}
-            className="object-cover !m-0 !p-0 object-top rounded-full h-14 w-14 border-2 group-hover:scale-105 group-hover:z-30 border-white  relative transition duration-500"
+            className="object-cover !m-0 !p-0 object-top rounded-full h-14 w-14 border-2 group-hover:scale-105 group-hover:z-30 border-white relative transition duration-500"
           />
         </div>
       ))}
